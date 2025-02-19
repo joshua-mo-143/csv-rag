@@ -59,10 +59,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let index = load_csv(embedding_model).await?;
 
     println!(
-        "Hi! This is your CSV ragger. Write a prompt and press Enter or write \"quit\" to exit. Alternatively, use \"reset\" to reset the conversation."
+        "Hi! This is your CSV ragger. Write a prompt and press Enter or write \"quit\" to exit."
     );
-
-    let mut chat_history: Vec<Message> = Vec::new();
 
     loop {
         print!("> ");
@@ -95,8 +93,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let answer = agent.chat(prompt.as_ref(), chat_history.clone()).await?;
 
         println!("{answer}");
-        chat_history.push(Message::user(prompt));
-        chat_history.push(Message::assistant(answer));
     }
 
     Ok(())
